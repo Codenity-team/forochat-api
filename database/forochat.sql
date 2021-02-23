@@ -1,13 +1,13 @@
 \c postgres
 
-select pg_terminate_backend(pid) from pg_stat_activity where datname='garage';
+select pg_terminate_backend(pid) from pg_stat_activity where datname='forochat';
 
-DROP DATABASE if exists garage;
-CREATE DATABASE garage
+DROP DATABASE if exists forochat;
+CREATE DATABASE forochat
 WITH ENCODING = "UTF8"
 CONNECTION LIMIT = -1;
 
-\c garage
+\c forochat
 
 \encoding UTF8
 
@@ -16,19 +16,24 @@ CREATE TABLE public.users (
 	
 	first_name VARCHAR(100) NOT NULL,
 	last_name VARCHAR(100) NOT NULL,
+
+	username VARCHAR(100) NOT NULL,
 	
 	status VARCHAR(100) NOT NULL,
 
-	mail VARCHAR(50) NOT NULL,
-	identity_document VARCHAR(50) NULL,
+	email VARCHAR(50) NOT NULL,
+	identification VARCHAR(50) NULL,
 
-	telephone VARCHAR(50) NULL,
+	phone VARCHAR(50) NULL,
+
+	password VARCHAR(50) NOT NULL,
+
 	address text NULL,
 
-	creation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	modification_date timestamp NULL,
+	create_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	update_at timestamp NULL,
 
-	CONSTRAINT users_mail_key UNIQUE (mail),
+	CONSTRAINT users_mail_key UNIQUE (email),
 	CONSTRAINT users_pkey PRIMARY KEY (id)
 );
 
